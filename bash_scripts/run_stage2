@@ -1,0 +1,23 @@
+#!/bin/bash 
+
+# run stage 2
+thresh_lab=${THRESH:2:2}
+fldr='stage2'_${thresh_lab}
+infldr="stage1"
+
+stage=2
+cut=0
+insuffix=${BURN}_${ITER}_${THIN}
+
+for ((cong=$CONG_MIN; cong<=$CONG_MAX; cong++))
+do
+for ((chain=1; chain<=$CHAINS; chain++))
+do
+	cong_str=`printf %03d $cong`
+        fileid=H$cong_str'_'$chain'_'$fldr
+        echo $fileid
+Rscript 1_run_models.R $cong $chain $stage $cut $BURN $ITER $THIN $fldr $infldr $insuffix $THRESH
+done
+done
+
+exit

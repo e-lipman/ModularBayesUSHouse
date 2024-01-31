@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# part 1: global hyperparameters
+export CONG_MIN=94 #93
+export CONG_MAX=94 #113
+
+export CHAINS=1 #2
+export CHAINS_FULL=2 #4 (8 for H105)
+
+export BURN=10 #10000
+export BURN_FULL=10 #20000
+
+export ITER=10 #5000
+export ITER_FULL=10 #15000 (20000 for H105)
+
+export THIN=1 #10
+export THIN_FULL=1 #20 (25 for H105)
+
+export THRESH=0.50
+
+export STEPS=5 #200
+
+# part 2: run models
+
+## Sample from full posterior (and postprocess)
+#bash bash_scripts/run_full
+
+## Sample from working posterior (and postprocess)
+#bash bash_scripts/run_stage1
+
+## Sample from stage 2 of cut model
+#bash bash_scripts/run_stage2cut
+
+## Sample from stage 2 of two-stage model
+#bash bash_scripts/run_stage2
+
+## Sensitivity analysis for stage 2 threshold
+#export THRESH=0.25
+#bash bash_scripts/run_stage2
+#export THRESH=0.75
+#bash bash_scripts/run_stage2
+
+# part 3: make figures
+Rscript make_figures.R 0 1 # main
+#Rscript make_figures.R 1 1 # sensitivity to threshold for two-stage
+
+
+
+

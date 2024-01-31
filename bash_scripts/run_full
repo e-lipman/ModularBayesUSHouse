@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# run full model
+fldr="joint"
+stage=0
+
+for ((cong=$CONG_MIN; cong<=$CONG_MAX; cong++))
+do
+for ((chain=1; chain<=$CHAINS_FULL; chain++))
+do
+	cong_str=`printf %03d $cong`
+        fileid=H$cong_str'_'$chain'_'$fldr
+        echo $fileid
+	Rscript 1_run_models.R $cong $chain $stage $BURN_FULL \
+		$ITER_FULL $THIN_FULL $fldr
+
+done
+	suffix=${BURN_FULL}_${ITER_FULL}_${THIN_FULL}
+	Rscript 2_postprocess.R $cong $stage $fldr $suffix
+done

@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# run stage 2 cut
+fldr="stage2cut"
+infldr="stage1"
+
+stage=2
+cut=1
+insuffix=${BURN}_${ITER}_${THIN}
+
+for ((cong=$CONG_MIN; cong<=$CONG_MAX; cong++))
+do
+for ((chain=1; chain<=$CHAINS; chain++))
+do
+	cong_str=`printf %03d $cong`
+        fileid=H$cong_str'_'$chain'_'$fldr
+        echo $fileid
+Rscript 1_run_models.R $cong $chain $stage $cut $STEPS $fldr $infldr $insuffix
+done
+done
+
+exit
