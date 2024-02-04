@@ -1,4 +1,5 @@
 #!/bin/bash
+cd IdealPointsCompare
 
 # run stage 1
 fldr="stage1"

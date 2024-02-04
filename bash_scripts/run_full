@@ -1,4 +1,5 @@
 #!/bin/bash
+cd IdealPointsCompare
 
 # run full model
 fldr="joint"

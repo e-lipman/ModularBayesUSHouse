@@ -1,4 +1,5 @@
 #!/bin/bash 
+cd IdealPointsCompare
 
 # run stage 2
 thresh_lab=${THRESH:2:2}
@@ -16,7 +17,7 @@ do
 	cong_str=`printf %03d $cong`
         fileid=H$cong_str'_'$chain'_'$fldr
         echo $fileid
-Rscript 1_run_models.R $cong $chain $stage $cut $BURN $ITER $THIN $fldr $infldr $insuffix $THRESH
+	Rscript 1_run_models.R $cong $chain $stage $cut $BURN $ITER $THIN $fldr $infldr $insuffix $THRESH
 done
 done
 

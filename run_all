@@ -1,48 +1,85 @@
 #!/bin/bash
 
+# parameters for this script
+
+## only remake figures, don't rerun models
+FIGURES_ONLY=0
+
+## TEST indicates whether the below hyperparameters are the default values (test run)
+##     or the actual values used for the paper, indicated below in comment#
+##     this is neccesary for the figures scripts since model hyperparams for filenames are hard-coded
+##     if using other values for hyperparameters, hardcoding in figures scripts must be modified manually
+TEST=1 # 0 for full run
+
+#############################################
+
 # part 1: global hyperparameters
-export CONG_MIN=94 #93
-export CONG_MAX=94 #113
 
-export CHAINS=1 #2
-export CHAINS_FULL=2 #4 (8 for H105)
+## earliest congress number
+export CONG_MIN=93 # 93
+## latest congress number
+export CONG_MAX=94 # 113
 
+## number of chains for stage 1 and stage 2 models
+export CHAINS=1 # 2
+## number of chains for full model
+export CHAINS_FULL=2 # 4 (8 for 105th congress)
+
+## number of burn-in for stage 1 and stage 2 models
 export BURN=10 #10000
+## number of burn-in for full model
 export BURN_FULL=10 #20000
 
+## number of iterations for stage 1 and stage 2 models
 export ITER=10 #5000
+## number of iterations for full model
 export ITER_FULL=10 #15000 (20000 for H105)
 
+## thinning factor for stage 1 and stage 2 models
 export THIN=1 #10
+## thinning factor for full model
 export THIN_FULL=1 #20 (25 for H105)
 
+## probability threshold for determining bridges in two stage mode
 export THRESH=0.50
 
-export STEPS=5 #200
+## number of steps per iteration in stage 2 of cut model
+export STEPS=5 #200A
+
+#############################################
 
 # part 2: run models
 
+if [ $FIGURES_ONLY -eq 0 ]; then
+	echo "Here"
+
 ## Sample from full posterior (and postprocess)
-#bash bash_scripts/run_full
+bash bash_scripts/run_full
 
 ## Sample from working posterior (and postprocess)
-#bash bash_scripts/run_stage1
+bash bash_scripts/run_stage1
 
 ## Sample from stage 2 of cut model
-#bash bash_scripts/run_stage2cut
+bash bash_scripts/run_stage2cut
 
 ## Sample from stage 2 of two-stage model
-#bash bash_scripts/run_stage2
+bash bash_scripts/run_stage2
 
 ## Sensitivity analysis for stage 2 threshold
-#export THRESH=0.25
-#bash bash_scripts/run_stage2
-#export THRESH=0.75
-#bash bash_scripts/run_stage2
+export THRESH=0.25
+bash bash_scripts/run_stage2
+export THRESH=0.75
+bash bash_scripts/run_stage2
+
+fi
+
+
+#############################################
 
 # part 3: make figures
-Rscript make_figures.R 0 1 # main
-#Rscript make_figures.R 1 1 # sensitivity to threshold for two-stage
+Rscript figures_bridging_fraction.R $TEST # figs showing bridging fraction
+Rscript figures_selected_models.R $TEST 0 # figs showing selected models
+Rscript figures_selected_models.R $TEST 1 # sensitivity to threshold of two-stage
 
 
 
