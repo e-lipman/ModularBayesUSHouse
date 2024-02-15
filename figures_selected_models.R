@@ -161,7 +161,7 @@ size_all %>%
   mutate(label=fct_relevel(label,LABELS)) %>%
   ggplot(aes(x=cong, y=num_cov, #ymax=L95, ymin=U95,
              shape=label, color=label)) +
-  geom_rect(data=party_info, ymin=0, ymax=21,
+  geom_rect(data=party_info, ymin=-1, ymax=21,
             aes(xmin=start-.5, xmax=end+.5),
             inherit.aes = F, alpha=.2) +
   #geom_linerange(position=position_dodge(.8)) +
@@ -170,7 +170,7 @@ size_all %>%
     values=c("dashed","solid","dotted")) +
   scale_shape_manual("",values=SHAPES) +
   scale_color_discrete("") +
-  xlab("Congress") +
+  xlab("House") +
   ylab("Median model size") +
   theme_bw()
 
@@ -245,10 +245,13 @@ combos %>%
   mutate(n=ifelse(is.na(n), 0, n),
          combo=fct_relevel(combo, names(combos)[2:5])) %>%
   ggplot(aes(x=cong, y=n, color=combo, shape=combo)) +
+  geom_rect(data=party_info, ymin=-1, ymax=21,
+            aes(xmin=start-.5, xmax=end+.5),
+            inherit.aes = F, alpha=.2) +
   geom_point() +
   scale_shape_manual("",values=c(SHAPES,4)) +
   scale_color_discrete("") +
-  xlab("Congress") +
+  xlab("House") +
   ylab("Number of covariates") +
   theme_bw()
 
@@ -399,6 +402,9 @@ select(mod_post, cong, label, num) %>%
   filter(num==NUM) %>%
   ggplot(aes(x=cong, y=prob_num, 
              color=label, shape=label)) +
+  geom_rect(data=party_info, ymin=0, ymax=1,
+            aes(xmin=start-.5, xmax=end+.5),
+            inherit.aes = F, alpha=.2) +
   geom_point() +
   xlab("House") +
   ylab(paste("Cummulative probability\nfor top",NUM,"models")) +
