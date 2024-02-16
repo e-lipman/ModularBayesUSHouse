@@ -1,8 +1,6 @@
 # ModularBayesUSHouse
 
-This repository produces the results and figures from the following manuscript:
-
-ADD CITATION
+This repository produces the results and figures from [On Data Analysis Pipelines and Modular Bayesian Modeling (Lipman & Rodriguez, 2024)](https://arxiv.org/abs/2402.04461)
 
 ## The `IdealPointsCompare` Submodule
 The source code for the analysis is contained in a submodule called [IdealPointsCompare](<https://github.com/e-lipman/IdealPointsCompare/tree/11e6be83530b39dcfd18dc1bac1d410dc372154d>). 
