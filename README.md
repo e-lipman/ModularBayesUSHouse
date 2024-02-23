@@ -22,7 +22,7 @@ Documentation for the source code and data is contained in the README for the `I
 
 - Scripts in this folder run individual analyses. These scripts do not need to be modified when changing the hyperparameters as hyperparameters are passed from the top level scrip
 
-`figures_bridging_fraction`: Makes Figure 10 (bridging frequency)
+`figures_bridging_fraction.R`: Makes Figure 10 (bridging frequency)
 
-`figures_selected_models`: Makes all other figures. This script is run twice: once for the main analysis (sens=0) to produce Figures 3-7 and once for the sensitivity analysis (sens=1) to produce Figures 8-9.
+`figures_selected_models.R`: Makes all other figures. This script is run twice: once for the main analysis (sens=0) to produce Figures 3-7 and once for the sensitivity analysis (sens=1) to produce Figures 8-9.
 
